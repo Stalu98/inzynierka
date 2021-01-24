@@ -1,0 +1,39 @@
+.container1
+{
+    width: 30%;
+    min-width: 400px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.customCard {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 1em;
+}
+
+.score {
+    font-size: 16px;
+    display: flex;
+    justify-content: space-around;
+    padding: 1em;
+}
+
+#logo
+{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.headers
+{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+}
+
+#flex-container
+{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
