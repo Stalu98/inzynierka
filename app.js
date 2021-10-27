@@ -1,34 +1,44 @@
 //Imports
-require('dotenv').config();
-const express = require('express');
-const { getLeagueName } = require('./helpers');
-const app = express()
-const port = 3000
+require("dotenv").config();
+const express = require("express");
+const { getLeagueName } = require("./helpers");
+const app = express();
+const port = 3000;
 
 const { Client } = require("pg");
 
+const connectionConfig = process.env.POSTGRES_URL
+    ? {
+          connectionString: process.env.POSTGRES_URL,
+      }
+    : {
+          host: process.env.POSTGRES_SOCKET,
+          user: "postgres",
+          password: "postgre",
+          database: "postgres",
+      };
+
 const client = new Client({
-    host: process.env.POSTGRES_SOCKET,
-    connectionString: process.env.POSTGRES_URL,
-    statement_timeout: 5000
+    ...connectionConfig,
+    statement_timeout: 5000,
 });
 
 client.connect();
 
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
 //Static files
-app.use(express.static('public'))
-app.use('/css', express.static(__dirname + 'public/css'))
-app.use('/js', express.static(__dirname + 'public/js'))
-app.use('/img', express.static(__dirname + 'public/img'))
+app.use(express.static("public"));
+app.use("/css", express.static(__dirname + "public/css"));
+app.use("/js", express.static(__dirname + "public/js"));
+app.use("/img", express.static(__dirname + "public/img"));
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/index.html')
-})
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/views/index.html");
+});
 
-app.get('/league/:league', async (req, res) => {
-    const league = req.params.league
+app.get("/league/:league", async (req, res) => {
+    const league = req.params.league;
     const leagueName = getLeagueName(league);
 
     const { rows: teams } = await client.query(`
@@ -46,13 +56,13 @@ app.get('/league/:league', async (req, res) => {
     res.render(__dirname + `/views/league.ejs`, {
         league,
         leagueName,
-        teams
-    })
-})
+        teams,
+    });
+});
 
-app.get('/team/:team', async (req, res) => {
+app.get("/team/:team", async (req, res) => {
     const team = req.params.team;
-    const teamName = "Team name"
+    const teamName = "Team name";
     const { rows: matches } = await client.query(`
         SELECT 
             m.id AS id,
@@ -72,14 +82,16 @@ app.get('/team/:team', async (req, res) => {
 
     res.render(__dirname + `/views/team.ejs`, {
         teamName,
-        matches
-    })
-})
+        matches,
+    });
+});
 
-app.get('/match/:match', async (req, res) => {
-    const matchId = req.params.match
+app.get("/match/:match", async (req, res) => {
+    const matchId = req.params.match;
 
-    const { rows: [match] } = await client.query(`
+    const {
+        rows: [match],
+    } = await client.query(`
         SELECT 
             m.date,
             m.goals_h,
@@ -127,10 +139,9 @@ app.get('/match/:match', async (req, res) => {
     console.log(match);
 
     res.render(__dirname + `/views/match.ejs`, {
-        match
-    })
-})
-
+        match,
+    });
+});
 
 //Listen on port 3000
-app.listen(port, () => console.info(`Listening on http://localhost:${port}`))
+app.listen(port, () => console.info(`Listening on http://localhost:${port}`));
