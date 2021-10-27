@@ -1,0 +1,23 @@
+.team-name {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.scores {
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.customCard {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 3em;
+}
+
+.table {
+    margin-top: 32px;
+}
+
+.header {
+    margin-top: 32px;
+}

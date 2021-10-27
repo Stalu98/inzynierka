@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= teamName %></title>
+    <link rel="stylesheet" href="/css/league.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="flex-container">
+        <div class="container1 customCard">
+            <div class="headers">
+               Matches
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Home</th>
+                        <th scope="col">Score</th>
+                        <th scope="col">Away</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% matches.forEach(function(match) { %>
+                        <tr style="cursor: pointer;" onclick=<%= `window.location="/match/${match.id}"` %>>
+                          <td><%= match.date.toLocaleString() %></td>
+                          <td><%= match.hometeam %></td>
+                          <td><%= match.hometeamscore + " : " + match.awayteamscore %></td>
+                          <td><%= match.awayteam %></td>
+                        </tr>
+                      <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</body>
+</html>
