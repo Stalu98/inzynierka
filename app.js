@@ -1,15 +1,15 @@
 //Imports
+require('dotenv').config();
 const express = require('express');
 const { getLeagueName } = require('./helpers');
 const app = express()
 const port = 3000
 
 const { Client } = require("pg");
-const connectionString =
-    "postgressql://postgres:postgres@localhost:5433/postgres";
 
 const client = new Client({
-    connectionString: connectionString,
+    host: process.env.POSTGRES_SOCKET,
+    connectionString: process.env.POSTGRES_URL,
     statement_timeout: 5000
 });
 
