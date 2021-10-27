@@ -18,6 +18,8 @@ const connectionConfig = process.env.POSTGRES_URL
           database: "postgres",
       };
 
+console.log(connectionConfig);
+
 const client = new Client({
     ...connectionConfig,
     statement_timeout: 5000,
